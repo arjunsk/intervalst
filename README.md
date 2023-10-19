@@ -3,7 +3,7 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/arjunsk/intervalst)](https://goreportcard.com/report/github.com/arjunsk/intervalst)
 
 An [interval tree](https://en.wikipedia.org/wiki/Interval_tree) is a balanced binary search tree designed to efficiently
-store and query intervals. It allows for rapid queries of the form "find all intervals that overlap with a
+store and query intervals. It allows for queries of the form "find all intervals that overlap with a
 given interval" or "find an interval that contains a specific point."
 
 This library is extracted from [etcd](https://github.com/etcd-io/etcd/tree/main)
