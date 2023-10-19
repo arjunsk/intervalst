@@ -20,16 +20,54 @@ import (
 )
 
 func main() {
-	ivt := intervalst.NewIntervalTree()
-	ivt.Insert(intervalst.NewInt64Interval(1, 3), 123)
-	ivt.Insert(intervalst.NewInt64Interval(9, 13), 456)
-	ivt.Insert(intervalst.NewInt64Interval(7, 20), 789)
+	ist := intervalst.NewIntervalTree()
+	ist.Insert(intervalst.NewInt64Interval(1, 3), "user1")
+	ist.Insert(intervalst.NewInt64Interval(9, 13), "user2")
+	ist.Insert(intervalst.NewInt64Interval(7, 20), "user3")
 
-	rs := ivt.Stab(intervalst.NewInt64Point(10))
-	for _, v := range rs {
-		fmt.Printf("Overlapping range: %+v\n", v)
+	// Output :
+	// given interval {Begin:4 End:8} overlaps with these existing intervals
+	// interval_st interval: &{Ivl:{Begin:7 End:20} Val:user3}
+	findIntervalIntersections(ist, intervalst.NewInt64Interval(4, 8))
+
+	// Output :
+	// given point {Begin:10 End:11} overlaps with these existing intervals
+	// interval_st interval: &{Ivl:{Begin:7 End:20} Val:user3}
+	// interval_st interval: &{Ivl:{Begin:9 End:13} Val:user2}
+	findPointIntersections(ist, intervalst.NewInt64Point(10))
+
+	// Output : 3
+	fmt.Println(ist.Len())
+
+	// Output:
+	// given interval {Begin:4 End:8} does not overlap with any existing intervals
+	ist.Delete(intervalst.NewInt64Interval(7, 20))
+	findIntervalIntersections(ist, intervalst.NewInt64Interval(4, 8))
+
+}
+
+func findPointIntersections(ist intervalst.IntervalTree, newPoint intervalst.Interval) {
+
+	if ist.Intersects(newPoint) {
+		fmt.Printf("given point %+v overlaps with these existing intervals \n", newPoint)
+
+		rs := ist.Stab(newPoint)
+		for _, v := range rs {
+			fmt.Printf("interval_st interval: %+v\n", v)
+		}
+		fmt.Println()
 	}
-	// output:
-	// Overlapping range: &{Ivl:{Begin:7 End:20} Val:789}
-	// Overlapping range: &{Ivl:{Begin:9 End:13} Val:456}
+}
+
+func findIntervalIntersections(ist intervalst.IntervalTree, newInterval intervalst.Interval) {
+	if ist.Intersects(newInterval) {
+		fmt.Printf("given interval %+v overlaps with these existing intervals \n", newInterval)
+		rs := ist.Stab(newInterval)
+		for _, v := range rs {
+			fmt.Printf("interval_st interval: %+v\n", v)
+		}
+		fmt.Println()
+	} else {
+		fmt.Printf("given interval %+v does not overlap with any existing intervals \n", newInterval)
+	}
 }
