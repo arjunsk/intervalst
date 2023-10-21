@@ -1,6 +1,7 @@
 # Interval Search Tree
 [![Go Reference](https://pkg.go.dev/badge/github.com/arjunsk/intervalst/intervalst.svg)](https://pkg.go.dev/github.com/arjunsk/intervalst)
 [![Go Report Card](https://goreportcard.com/badge/github.com/arjunsk/intervalst)](https://goreportcard.com/report/github.com/arjunsk/intervalst)
+![Coverage](https://gitlab.com/arjunsk/intervalst/badges/master/coverage.svg)
 
 An [interval tree](https://en.wikipedia.org/wiki/Interval_tree) is a balanced binary search tree designed to efficiently
 store and query intervals. It allows for queries of the form "find all intervals that overlap with a
